@@ -80,16 +80,17 @@ app.use((req, res, next) => {
 });
 
 //ROOT
-// app.get("/", (req, res) => {
-//     res.render('listing/home.ejs');
-// });
+app.get("/", (req, res) => {
+    res.render('listing/home.ejs');
+});
 
 app.use("/listings", listingRouter);
 app.use('/listings/:id/reviews', reviewRouter);
 app.use('/', userRouter);
 
 app.all("*", (req, res, next) => {
-    next(new ExpressError(404, "Page Not Found"));
+    // next(new ExpressError(404, "Page Not Found"));
+    res.redirect("/listings");
 });
 
 app.use((err, req, res, next) => {
