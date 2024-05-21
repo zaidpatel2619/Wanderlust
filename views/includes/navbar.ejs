@@ -1,0 +1,70 @@
+<style>
+  .search-div {
+    border: 1px solid black;
+    border-radius: 25px;
+    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .search-inp {
+    width: 30rem;
+    border-radius: 25px;
+    padding: 0 2rem 0 2rem;
+  }
+
+  .search-btn {
+    border-radius: 25px;
+    margin: 0.2rem;
+    background-color: #fe424d;
+    color: white;
+  }
+
+  .search-btn:hover {
+    background-color: #fe424d;
+    color: white;
+  }
+</style>
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i> WanderLust</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="/listings">Explore</a>
+      </div>
+      <div class="navbar-nav ms-auto search-div">
+        <form method="GET" id="search-form" class="form d-flex">
+          <input class="form-control me-2 search-inp" type="search" placeholder="Enter Title/Location" aria-label="Search" name="search">
+          <button class="btn search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/listings/new">New Listing</a>
+        <% if (!currentUser) { %>
+          <a class="nav-link active" aria-current="page" href="/signup"><b>Sign Up</b></a>
+          <a class="nav-link" href="/login"><b>Login</b></a>
+          <% } %>
+            <% if (currentUser) { %>
+              <a class="nav-link" href="/logout"><b>Logout</b></a>
+              <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.getElementById('search-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    console.log('event', event);
+    console.log('event.target[0].value', event.target[0].value);
+    const form = event.target;
+    const data = new URLSearchParams(new FormData(form)).toString();
+    console.log('data', data);
+    const url = `/listings?${data}`;
+    window.location.href = url; // Redirect with query parameters
+  });
+</script>

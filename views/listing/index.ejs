@@ -1,0 +1,210 @@
+<% layout("/layouts/boilerplate") %>
+    <style>
+        #filters {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter {
+            text-align: center;
+            margin-right: 2rem;
+            margin-top: 2rem;
+            opacity: 0.7;
+            border-bottom: 1px solid white;
+        }
+        
+        .filter:hover {
+            opacity: 1;
+            cursor: pointer;
+            border-bottom: 1px solid black;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .filter-button {
+            background: none;
+            border: none;
+        }
+
+        .filter div {
+            font-size: 0.8rem;
+        }
+
+        #reset-filter i,
+        #reset-filter div {
+            color: red;
+            border-bottom: 1px solid white;
+        }
+        #reset-filter:hover {
+            border-bottom: 1px solid red;
+        }
+
+        .tax-toggle {
+            border: 1px solid black;
+            border-radius: 1rem;
+            padding: 1rem;
+            height: 3rem;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .tax-info {
+            display: none;
+        }
+    </style>
+
+    <body>
+        <div>
+            <div id="filters">
+                <form class="form" id="form-filters" action="/listings" method="GET">
+                    <div class="filter">
+                        <input type="text" class="hidden" value="Trending" name="filter"></input>
+                        <button class="filter-button" type="submit">
+                            <i class="fa-solid fa-fire"></i>
+                            <div>Trending</div>
+                        </button>
+                    </div>
+                </form>
+                <form class="form" id="form-filters" action="/listings" method="GET">
+                    <div class="filter">
+                        <input type="text" class="hidden" value="Rooms" name="filter"></input>
+                        <button class="filter-button" type="submit">
+                            <i class="fa-solid fa-bed"></i>
+                            <div>Rooms</div>
+                        </button>
+                    </div>
+                </form>
+                <form class="form" id="form-filters" action="/listings" method="GET">
+                    <div class="filter">
+                        <input type="text" class="hidden" value="Iconic Citites" name="filter"></input>
+                        <button class="filter-button" type="submit">
+                            <i class="fa-solid fa-mountain-city"></i>
+                            <div>Iconic Cities</div>
+                        </button>
+                    </div>
+                </form>
+                <form class="form" id="form-filters" action="/listings" method="GET">
+                    <div class="filter">
+                        <input type="text" class="hidden" value="Mountain" name="filter"></input>
+                        <button class="filter-button" type="submit">
+                            <i class="fa-solid fa-mountain"></i>
+                            <div>Mountain</div>
+                        </button>
+                    </div>
+                </form>
+                <form class="form" id="form-filters" action="/listings" method="GET">
+                    <div class="filter">
+                        <input type="text" class="hidden" value="Castles" name="filter"></input>
+                        <button class="filter-button" type="submit">
+                            <i class="fa-brands fa-fort-awesome"></i>
+                            <div>Castles</div>
+                        </button>
+                    </div>
+                </form>
+                <form class="form" id="form-filters" action="/listings" method="GET">
+                    <div class="filter">
+                        <input type="text" class="hidden" value="Amazing Pools" name="filter"></input>
+                        <button class="filter-button" type="submit">
+                            <i class="fa-solid fa-person-swimming"></i>
+                            <div>Amazing Pools</div>
+                        </button>
+                    </div>
+                </form>
+                <form class="form" id="form-filters" action="/listings" method="GET">
+                    <div class="filter">
+                        <input type="text" class="hidden" value="Camping" name="filter"></input>
+                        <button class="filter-button" type="submit">
+                            <i class="fa-solid fa-campground"></i>
+                            <div>Camping</div>
+                        </button>
+                    </div>
+                </form>
+                <form class="form" id="form-filters" action="/listings" method="GET">
+                    <div class="filter">
+                        <input type="text" class="hidden" value="Arctic" name="filter"></input>
+                        <button class="filter-button" type="submit">
+                            <i class="fa-solid fa-snowflake"></i>
+                            <div>Arctic</div>
+                        </button>
+                    </div>
+                </form>
+                <form class="form" id="form-filters" action="/listings" method="GET">
+                    <div class="filter">
+                        <input type="text" class="hidden" value="Beaches" name="filter"></input>
+                        <button class="filter-button" type="submit">
+                            <i class="fa-solid fa-umbrella-beach"></i>
+                            <div>Beaches</div>
+                        </button>
+                    </div>
+                </form>
+                <form class="form" id="" action="/listings" method="GET">
+                    <div class="filter" id="reset-filter">
+                        <input type="text" class="hidden" value="" name="filter"></input>
+                        <button class="filter-button" type="submit">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                            <div>Reset Filters</div>
+                        </button>
+                    </div>
+                </form>
+                <div class="tax-toggle">
+                    <div class="form-check-reverse form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Dispaly total after Taxes</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 mt-3">
+                <% for (let listing of allListings) { %>
+                    <a class="listing-link" href="/listings/<%= listing._id %>">
+                        <div class="card listing-card">
+                            <img src="<%= listing.image.url %>" class="card-img-top" style="height: 20rem;"
+                                alt="<%= listing.image %>">
+                            <div class="card-img-overlay"></div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= listing.title %>
+                                </h5>
+                                <p class="card-text">&#8377; <%= listing.price.toLocaleString('en-IN') %>
+                                    <i class="tax-info">&nbsp; +18% GST</i>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                    <% } %>
+            </div>
+        </div>
+        <div></div>
+    </body>
+
+    <script>
+        document.getElementById('form-filters').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const form = event.target;
+            const data = new URLSearchParams(new FormData(form)).toString();
+            const url = `/listings?${data}`;
+            window.location.href = url; // Redirect with query parameters
+        });
+
+        document.getElementById('reset-filter').addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.href = '/listings';
+        });
+
+        document.getElementById('flexSwitchCheckDefault').addEventListener("click", () => {
+            let taxInfo = document.getElementsByClassName("tax-info");
+            for (info of taxInfo) {
+                if (info.style.display !== "inline") {
+                    info.style.display = "inline";
+                } else {
+                    info.style.display = "none";
+                }
+            }
+
+        });
+
+    </script>
