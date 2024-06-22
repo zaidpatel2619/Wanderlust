@@ -159,6 +159,7 @@
             </div>
             <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 mt-3">
                 <% for (let listing of allListings) { %>
+                    <% let taxedPrice = listing.price + ((listing.price * 18)/100) %>
                     <a class="listing-link" href="/listings/<%= listing._id %>">
                         <div class="card listing-card">
                             <img src="<%= listing.image.url %>" class="card-img-top" style="height: 20rem;"
@@ -168,8 +169,9 @@
                                 <h5 class="card-title">
                                     <%= listing.title %>
                                 </h5>
-                                <p class="card-text">&#8377; <%= listing.price.toLocaleString('en-IN') %>
-                                    <i class="tax-info">&nbsp; +18% GST</i>
+                                <p class="card-text price-info">&#8377; <%= listing.price %></p>
+                                <p class="card-text tax-info">&#8377; <%= taxedPrice %>
+                                    <!-- <i class="">&nbsp; <%=  %></i> -->
                                 </p>
                             </div>
                         </div>
@@ -197,6 +199,7 @@
 
         document.getElementById('flexSwitchCheckDefault').addEventListener("click", () => {
             let taxInfo = document.getElementsByClassName("tax-info");
+            let priceInfo = document.getElementsByClassName("price-info");
             for (info of taxInfo) {
                 if (info.style.display !== "inline") {
                     info.style.display = "inline";
@@ -204,7 +207,14 @@
                     info.style.display = "none";
                 }
             }
-
+            for (info of priceInfo) {
+                if (info.style.display !== "none") {
+                    info.style.display = "none";
+                } else {
+                    info.style.display = "inline";
+                }
+            }
+            
         });
 
     </script>

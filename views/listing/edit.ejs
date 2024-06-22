@@ -8,7 +8,7 @@
                     <div class="mb-3">
                         <label for="category" class="form-label">Category</label>
                         <select name="listing[category]" id="category" class="form-select select" title="Select a category">
-                            <option value="">Select a Category</option>
+                            <option value="<%= listing.category %>"><%= listing.category %></option>
                             <option value="Trending">Trending</option>
                             <option value="Rooms">Rooms</option>
                             <option value="Iconic Cities">Iconic Cities</option>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Original Image</label>
-                        <img src="<%= imageUrl %>" >
+                        <img class="card-img-top show-img" src="<%= imageUrl %>">
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">Image URL</label>
